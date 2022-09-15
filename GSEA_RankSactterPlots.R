@@ -82,16 +82,20 @@ SI_genes <- read.csv(file="GSEA_analsyis_again/SI_GSEA.GseaPreranked.16361487877
 SI_genes <- SI_genes[1:299,]
 df <- data.frame(LI_genes, SI_genes)
 
-jpeg("GSEA_analsyis_again/ES_Score_LI_SI.png", height = 4, width = 6, units = 'in', res = 600)
-plot (LI_genes$RUNNING.ES ~ LI_genes$RANK.IN.GENE.LIST, type="l", col="#6495ED", ylim=range(c(0,0.85)), lwd = 3, xlab="Gene Rank", ylab="Enrichment Score (ES)")
+jpeg("GSEA_analsyis_again/ES_Score_LI_SI_New.png", height = 4, width = 6, units = 'in', res = 600)
+#plot (LI_genes$RUNNING.ES ~ LI_genes$RANK.IN.GENE.LIST, type="l", col="#6495ED", ylim=range(c(0,0.85)), lwd = 3, xlab="Gene Rank", ylab="Enrichment Score (ES)")
+plot (LI_genes$RUNNING.ES ~ LI_genes$RANK.IN.GENE.LIST, type="l", col="blue", ylim=range(c(0,0.85)), lwd = 3, xlab="Gene Rank", ylab="Enrichment Score (ES)")
 #par(new=TRUE)
 #plot(SI_genes$RUNNING.ES ~ SI_genes$RANK.IN.GENE.LIST, type="l", col="darkgreen", add=TRUE)
-points(SI_genes$RUNNING.ES ~ SI_genes$RANK.IN.GENE.LIST,col='orchid1',type="l", lwd = 3)
+points(SI_genes$RUNNING.ES ~ SI_genes$RANK.IN.GENE.LIST,col='darkred',type="l", lwd = 3)
 dev.off ()
 
 #--- Rank Bars
-
-
+jpeg("GSEA_analsyis_again/ES_Score_RankBars.png", height = 3, width = 6, units = 'in', res = 600)
+plot(LI_genes$RANK.IN.GENE.LIST,rep(1,length(LI_genes$RANK.IN.GENE.LIST)),col="white")
+segments(LI_genes$RANK.IN.GENE.LIST,rep(0,length(LI_genes$RANK.IN.GENE.LIST)),LI_genes$RANK.IN.GENE.LIST,rep(1,length(LI_genes$RANK.IN.GENE.LIST)),col="blue")
+segments(SI_genes$RANK.IN.GENE.LIST,rep(1,length(SI_genes$RANK.IN.GENE.LIST)),SI_genes$RANK.IN.GENE.LIST,rep(2,length(SI_genes$RANK.IN.GENE.LIST)),col="darkred")
+dev.off ()
 
 #######**************************
 #### Figure2
@@ -147,7 +151,7 @@ C3_SI$SAC_Rev_rank <- as.numeric(as.character(C3_SI$SAC_Rev_rank))
 C3_SI$Cond_Rev_rank <- as.numeric(as.character(C3_SI$Cond_Rev_rank))
 jpeg("Rank_bi_Plots/C3_SI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C3_SI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "orchid1",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C3_SI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C3_SI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 
@@ -156,7 +160,7 @@ C5_SI$SAC_Rev_rank <- as.numeric(as.character(C5_SI$SAC_Rev_rank))
 C5_SI$Cond_Rev_rank <- as.numeric(as.character(C5_SI$Cond_Rev_rank))
 jpeg("Rank_bi_Plots/C5_SI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C5_SI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "orchid1",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C5_SI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C5_SI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 C6_SI <- subset(SI_ranks, MB_Cluster == "C6")
@@ -164,7 +168,7 @@ C6_SI$SAC_Rev_rank <- as.numeric(as.character(C6_SI$SAC_Rev_rank))
 C6_SI$Cond_Rev_rank <- as.numeric(as.character(C6_SI$Cond_Rev_rank))
 jpeg("Rank_bi_Plots/C6_SI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C6_SI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "orchid1",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C6_SI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C6_SI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 C8_SI <- subset(SI_ranks, MB_Cluster == "C8")
@@ -172,7 +176,7 @@ C8_SI$SAC_Rev_rank <- as.numeric(as.character(C8_SI$SAC_Rev_rank))
 C8_SI$Cond_Rev_rank <- as.numeric(as.character(C8_SI$Cond_Rev_rank))
 jpeg("Rank_bi_Plots/C8_SI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C8_SI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "orchid1",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C8_SI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C8_SI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 #---------- Plot LI Genes
@@ -181,17 +185,17 @@ C7_LI <- subset(LI_ranks, MB_Cluster == "C7")
 C7_LI$SAC_Rev_rank <- as.numeric(as.character(C7_LI$SAC_Rev_rank))
 C7_LI$Cond_Rev_rank <- as.numeric(as.character(C7_LI$Cond_Rev_rank))
 
-jpeg("Rank_bi_Plots/C7_LI_rev.png", height = 4, width = 4, units = 'in', res = 600)
+jpeg("Rank_bi_Plots/C7_LI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C7_LI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "#6495ED",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C7_LI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C7_LI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 C8_LI <- subset(LI_ranks, MB_Cluster == "C8")
 C8_LI$SAC_Rev_rank <- as.numeric(as.character(C8_LI$SAC_Rev_rank))
 C8_LI$Cond_Rev_rank <- as.numeric(as.character(C8_LI$Cond_Rev_rank))
-jpeg("Rank_bi_Plots/C8_LI_rev.png", height = 4, width = 4, units = 'in', res = 600)
+jpeg("Rank_bi_Plots/C8_LI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C8_LI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "#6495ED",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C8_LI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C8_LI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 C13_LI <- subset(LI_ranks, MB_Cluster == "C13")
@@ -199,13 +203,13 @@ C13_LI$SAC_Rev_rank <- as.numeric(as.character(C13_LI$SAC_Rev_rank))
 C13_LI$Cond_Rev_rank <- as.numeric(as.character(C13_LI$Cond_Rev_rank))
 jpeg("Rank_bi_Plots/C13_LI_rev.png", height = 4, width = 4, units = 'in', res = 600)
 p <- ggplot(C13_LI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "#6495ED",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C13_LI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C13_LI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
 
 C15_LI <- subset(LI_ranks, MB_Cluster == "C15")
 C15_LI$SAC_Rev_rank <- as.numeric(as.character(C15_LI$SAC_Rev_rank))
 C15_LI$Cond_Rev_rank <- as.numeric(as.character(C15_LI$Cond_Rev_rank))
-jpeg("Rank_bi_Plots/C15_LI_rev.png", height = 4, width = 4, units = 'in', res = 600)
+jpeg("Rank_bi_Plots/C15_LI_rev.png", height = 3.5, width = 4, units = 'in', res = 600)
 p <- ggplot(C15_LI, aes(x=SAC_Rev_rank, y=Cond_Rev_rank)) +geom_point(colour = "#6495ED",size = 3,show.legend=FALSE)+geom_vline(xintercept=9000, linetype="dotted")+geom_hline(yintercept=9000, linetype="dotted")
-p + geom_label_repel(aes(label=rownames(C15_LI)),max.overlaps=20,force = 200,size=2)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
+p + geom_label_repel(aes(label=rownames(C15_LI)),max.overlaps=20,force = 200,size=5)+xlim(0,18000)+ylim(0,18000)+theme_bw()+guides(x = "none", y = "none")+labs(x="",y="")
 dev.off ()
